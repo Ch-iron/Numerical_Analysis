@@ -22,7 +22,10 @@ if c == 1:
             print("The min location is : ", init)
             break
         elif f1 != 0:
-            nv = init - f1/f2
+            nv = init - 2 * (f1/f2)
+            dx = abs(nv - init)/2
+            nv = nv + dx
+            print(nv)
             if abs(f1) < 0.00000001:
                 print("The min location is : ", init)
                 break
