@@ -1,4 +1,3 @@
-import numpy as np
 from sympy import symbols, Derivative
 
 print("We will find the min locations fx = 5x^4 - 22.4x^3 + 15.85272x^2 + 24.161472x - 23.4824832")
@@ -24,10 +23,7 @@ if c == 1:
             break
         elif f1 != 0:
             nv = init - f1/f2
-            if init == nv:
-                print("The min location is : ", init)
-                break
-            elif abs(f1) < 0.000000001:
+            if abs(f1) < 0.00000001:
                 print("The min location is : ", init)
                 break
             init = nv
@@ -57,10 +53,7 @@ elif c == 2:
             break
         elif f1xi != 0:
             xip1 = xi - f1xi/f2xi
-            if xi == xip1:
-                print("The min location is : ", xi)
-                break
-            elif abs(f1xi) < 0.00000001:
+            if abs(f1xi) < 0.0000001:
                 print("The min location is : ", xi)
                 break
             xi = xip1
