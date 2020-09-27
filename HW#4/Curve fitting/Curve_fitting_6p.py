@@ -49,11 +49,11 @@ for j in range(1, 3):
         y2 = X[1, 0]
         x2 = X[2, 0]
 
-k = np.arange(-4, 5, 0.01)
+k = np.arange(-100, 100, 0.01)
 fit1 = z1*k**2 + y1*k + x1
 plt.plot(k, fit1)
 fit2 = z2*k**2 + y2*k + x2
 plt.plot(k, fit2)
 fit3 = 3.16052477*k**2 - 2.36059821*k + 1.35828072
-#plt.plot(k, fit3)
+plt.plot(k, fit3)
 plt.show()
