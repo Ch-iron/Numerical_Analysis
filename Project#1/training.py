@@ -39,9 +39,6 @@ def readImages(path):
             if im is None :
                 print("image:{} not read properly".format(imagePath))
             else :
-                # Convert image to floating point
-                #im = np.float32(im)/255.0
-                # Add image to list
                 images.append(im)
     numImages = int(len(images))
     # Exit if no image found
@@ -119,7 +116,6 @@ if __name__ == '__main__':
     a_matrix = createMatrixA(images)
 
     # SVD for eigenvalue
-    '''
     print("SVD ing", end="...")
     u, s, vt = np.linalg.svd(a_matrix)
     s = s.flatten()
@@ -129,7 +125,7 @@ if __name__ == '__main__':
             print("Singular Value : " + str(i))
             print("Number of Singular Value : " + str(j))
             j = j + 1
-    '''
+
     # Compute the eigenvectors from the stack of images created
     print("Calculating PCA ", end="...")
     mean, eigenVectors = cv2.PCACompute(a_matrix, mean=None, maxComponents=NUM_EIGEN_FACES)
@@ -144,12 +140,11 @@ if __name__ == '__main__':
         i = i + 1
         
     #Create eigenFace image    
-    '''
     for i in range(0, NUM_EIGEN_FACES):
         eigenFace = eigenFaces[i].reshape(sz)
         eigenFace = eigenFace * 1000 + 128
         cv2.imwrite("eigen_test/eigenface" + str(i) + ".jpg", eigenFace)
-    '''
+
     test_images = readTestImages("test")
 
     #Solve Ck on each image
@@ -159,13 +154,13 @@ if __name__ == '__main__':
             ck[i, j] = np.dot(test_images[i], eigenFaces[j])
     ck3d = ck.reshape(14, 9, -1)
     count = 1
-    #for i in range(0, 14):
-    #    for j in range(0, 9):
-    #        print(ck3d[i, j])
-    #        print(ck3d[i].mean(axis = 0))
-    #    print("----------------------", end = ' ')
-    #    print(count)
-    #    count = count + 1
+    for i in range(0, 14):
+        for j in range(0, 9):
+            print(ck3d[i, j])
+            print(ck3d[i].mean(axis = 0))
+        print("----------------------", end = ' ')
+        print(count)
+        count = count + 1
     
     #Two images input, decide same people
     ck_except_m = np.zeros((14, 7, 16),dtype=np.float32)
@@ -211,7 +206,6 @@ if __name__ == '__main__':
         print("Same Person")
     
     #new images input, face classify
-    '''
     ck_min_max = np.zeros((14, 2, NUM_EIGEN_FACES),dtype=np.float32)
     ck_column = np.zeros((9,), dtype=np.float32)
     ck_final = np.zeros((7,), dtype=np.float32)
@@ -222,8 +216,8 @@ if __name__ == '__main__':
             ck_final = ck_column[1:7]
             ck_min_max[i,0,j] = np.max(ck_final)
             ck_min_max[i,1,j] = np.min(ck_final)
-    #for i in range(0, 14):
-    #    print(ck_min_max[i])
+    for i in range(0, 14):
+        print(ck_min_max[i])
 
     ck_new = np.zeros((14, NUM_EIGEN_FACES), dtype=np.float32)
     new_images = readTestImages("new")
@@ -241,10 +235,8 @@ if __name__ == '__main__':
         if true_count >= 10:
             print("Matching" + str(i + 1))
         print("-------------------------------")
-    '''
 
     #Image recovery
-    '''
     means = ImageMean("test")
     for i in range(0, 126):
         recovery = np.zeros((32 * 32,), dtype=np.float32)
@@ -254,4 +246,3 @@ if __name__ == '__main__':
         recovery = recovery + means[i]
         output = recovery.reshape(sz)
         cv2.imwrite("recovery/recovery_" + str(i + 1) + ".jpg", output)
-    '''
