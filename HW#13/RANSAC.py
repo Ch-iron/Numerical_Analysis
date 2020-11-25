@@ -79,18 +79,3 @@ best_sol = min_X[0] * x + min_X[1]
 plt.plot(x, best_sol)
 plt.grid()
 plt.show()
-
-'''
-fit = np.polyfit(x, y, 2)
-print(fit)
-
-
-r = np.arange(-4, 5, 0.01)
-fit2 = 3.16052477*r**2 - 2.36059821*r + 1.35828072
-'''
-'''
-plt.scatter(x, y)
-plt.plot(x, y)
-plt.grid()
-plt.show()
-'''
